@@ -9,8 +9,9 @@ public:
 	Sprite(Graphics& graphics, const std::string& filePath, int sourceX, int sourceY, int width, int height, float posX, float posY);
 	~Sprite();
 	void draw(Graphics& graphics);
-private:
+protected:
 	float _x, _y;
 	SDL_Rect _sourceRect;
 	SDL_Texture* _spriteSheet;
+private:
 };
