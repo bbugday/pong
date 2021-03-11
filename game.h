@@ -1,6 +1,7 @@
 #pragma once
 
 #include "paddle.h"
+#include "input.h"
 
 class Graphics;
 
@@ -12,5 +13,7 @@ private:
 	void gameLoop();
 	void draw(Graphics& graphics);
 	void update(int elapsedTime);
+	void handleInputs(Input& input);
 	Paddle _paddleLeft;
+	Paddle _paddleRight;
 };

@@ -3,7 +3,7 @@
 #include "graphics.h"
 #include "paddle.h"
 #include "input.h"
-#include <iostream>
+#include "globals.h"
 
 
 Game::Game() {
@@ -21,8 +21,10 @@ void Game::gameLoop() {
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
-	this->_paddleLeft = Paddle(graphics, "assets/paddle.png", 0, 0, 16, 110, 0, 0);
-	
+	this->_paddleLeft = Paddle(graphics, "assets/paddle.png", 0, 0, globals::PADDLE_WIDTH, globals::PADDLE_HEIGHT, 20, 
+		globals::SCREEN_HEIGHT/2 - globals::PADDLE_HEIGHT/2);
+	this->_paddleRight = Paddle(graphics, "assets/paddle.png", 0, 0, globals::PADDLE_WIDTH, globals::PADDLE_HEIGHT,
+		globals::SCREEN_WIDTH - (20 + globals::PADDLE_WIDTH), globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
 	int lastUpdateTime = SDL_GetTicks();
 	int deltaTime = 0;
 
@@ -41,15 +43,8 @@ void Game::gameLoop() {
 				return;
 			}
 		}
-		if (input.isKeyHeld(SDL_SCANCODE_UP)) {
-			_paddleLeft.moveUp();
-		}
-		else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
-			_paddleLeft.moveDown();
-		}
-		if (!input.isKeyHeld(SDL_SCANCODE_UP) && !input.isKeyHeld(SDL_SCANCODE_DOWN)) {
-			this->_paddleLeft.stopMoving();
-		}
+
+		this->handleInputs(input);
 
 		int endTime = SDL_GetTicks();
 		deltaTime = endTime - lastUpdateTime;
@@ -65,9 +60,34 @@ void Game::gameLoop() {
 void Game::draw(Graphics& graphics) {
 	graphics.clear();
 	this->_paddleLeft.draw(graphics);
+	this->_paddleRight.draw(graphics);
 	graphics.flip();
 }
 
 void Game::update(int elapsedTime) {
 	this->_paddleLeft.update(elapsedTime);
+	this->_paddleRight.update(elapsedTime);
+}
+
+void Game::handleInputs(Input& input) {
+
+	if (input.isKeyHeld(SDL_SCANCODE_UP)) {
+		_paddleRight.moveUp();
+	}
+	else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+		_paddleRight.moveDown();
+	}
+	if (!input.isKeyHeld(SDL_SCANCODE_UP) && !input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+		this->_paddleRight.stopMoving();
+	}
+
+	if (input.isKeyHeld(SDL_SCANCODE_W)) {
+		_paddleLeft.moveUp();
+	}
+	else if (input.isKeyHeld(SDL_SCANCODE_S)) {
+		_paddleLeft.moveDown();
+	}
+	if (!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S)) {
+		this->_paddleLeft.stopMoving();
+	}
 }
