@@ -16,6 +16,8 @@ Sprite::Sprite(Graphics& graphics, const std::string& filePath, int sourceX, int
 	}
 }
 
+Sprite::Sprite() {}
+
 Sprite::~Sprite() {}
 
 void Sprite::draw(Graphics& graphics) {

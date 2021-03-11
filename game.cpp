@@ -3,7 +3,6 @@
 #include "graphics.h"
 #include "paddle.h"
 #include "input.h"
-
 #include <iostream>
 
 
@@ -22,14 +21,13 @@ void Game::gameLoop() {
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
-	Paddle paddle1 = Paddle(graphics, "assets/paddle.png", 0, 0, 16, 110, 0, 0);
-	paddle1.draw(graphics);
-	graphics.flip();
-
+	this->_paddleLeft = Paddle(graphics, "assets/paddle.png", 0, 0, 16, 110, 0, 0);
+	
 	int lastUpdateTime = SDL_GetTicks();
+	int deltaTime = 0;
 
 	while (true) {
-		
+
 		if (SDL_PollEvent(&event)) {
 			if (event.type == SDL_KEYDOWN) {
 				if (!event.key.repeat) {
@@ -44,20 +42,32 @@ void Game::gameLoop() {
 			}
 		}
 		if (input.isKeyHeld(SDL_SCANCODE_UP)) {
-			paddle1.moveUp();
+			_paddleLeft.moveUp();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+			_paddleLeft.moveDown();
+		}
+		if (!input.isKeyHeld(SDL_SCANCODE_UP) && !input.isKeyHeld(SDL_SCANCODE_DOWN)) {
+			this->_paddleLeft.stopMoving();
 		}
 
-		graphics.clear();
-		paddle1.draw(graphics);
-		graphics.flip();
-
 		int endTime = SDL_GetTicks();
-		int deltaTime = endTime - lastUpdateTime;
+		deltaTime = endTime - lastUpdateTime;
+		this->update(deltaTime);
 		int delay = frameMS - deltaTime;
-
-		if(delay>0)
+		if (delay > 0)
 			SDL_Delay(delay);
+		this->draw(graphics);
 		lastUpdateTime = SDL_GetTicks();
-		
 	}
+}
+
+void Game::draw(Graphics& graphics) {
+	graphics.clear();
+	this->_paddleLeft.draw(graphics);
+	graphics.flip();
+}
+
+void Game::update(int elapsedTime) {
+	this->_paddleLeft.update(elapsedTime);
 }

@@ -6,7 +6,7 @@
 Graphics::Graphics() {
 	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
 	SDL_SetWindowTitle(_window, "Pong");
-	SDL_SetRenderDrawColor(this->_renderer, 0xFF, 0xFF, 0x0, 0xFF);
+	SDL_SetRenderDrawColor(this->_renderer, 0x0, 0x0, 0xFF, 0x0);
 	SDL_RenderClear(this->_renderer);
 	SDL_RenderPresent(this->_renderer);
 }
