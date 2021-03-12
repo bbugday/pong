@@ -71,6 +71,7 @@ void Game::draw(Graphics& graphics) {
 void Game::update() {
 	this->_paddleLeft.update();
 	this->_paddleRight.update();
+	this->_ball.update(_paddleLeft, _paddleRight);
 }
 
 void Game::handleInputs(Input& input) {

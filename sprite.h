@@ -10,6 +10,7 @@ public:
 	~Sprite();
 	void draw(Graphics& graphics);
 	float _scale;
+	SDL_Rect getRectangle();
 protected:
 	float _x, _y;
 	SDL_Rect _sourceRect;

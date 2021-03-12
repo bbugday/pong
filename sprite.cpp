@@ -22,6 +22,10 @@ Sprite::Sprite() {}
 Sprite::~Sprite() {}
 
 void Sprite::draw(Graphics& graphics) {
-	SDL_Rect destinationRectangle = { this->_x, this->_y, this->_sourceRect.w * _scale, this->_sourceRect.h * _scale};
-	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destinationRectangle);
+	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &getRectangle());
+}
+
+SDL_Rect Sprite::getRectangle() {
+	SDL_Rect rect = { this->_x, this->_y, this->_sourceRect.w * _scale, this->_sourceRect.h * _scale };
+	return rect;
 }
