@@ -20,7 +20,7 @@ void Paddle::moveDown() {
 	this->_dy = paddle_constants::SPEED;
 }
 
-void Paddle::update(float elapsedTime) {
+void Paddle::update() {
 	//this->_y = this->_y + this->_dy * elapsedTime;
 	this->_y = this->_y + this->_dy;
 	if (this->_y < 0)

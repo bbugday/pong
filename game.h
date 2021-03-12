@@ -13,7 +13,7 @@ public:
 private:
 	void gameLoop();
 	void draw(Graphics& graphics);
-	void update(int elapsedTime);
+	void update();
 	void handleInputs(Input& input);
 	Paddle _paddleLeft;
 	Paddle _paddleRight;

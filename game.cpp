@@ -51,7 +51,7 @@ void Game::gameLoop() {
 
 		int endTime = SDL_GetTicks();
 		deltaTime = endTime - lastUpdateTime;
-		this->update(deltaTime);
+		this->update();
 		int delay = frameMS - deltaTime;
 		if (delay > 0)
 			SDL_Delay(delay);
@@ -68,9 +68,9 @@ void Game::draw(Graphics& graphics) {
 	graphics.flip();
 }
 
-void Game::update(int elapsedTime) {
-	this->_paddleLeft.update(elapsedTime);
-	this->_paddleRight.update(elapsedTime);
+void Game::update() {
+	this->_paddleLeft.update();
+	this->_paddleRight.update();
 }
 
 void Game::handleInputs(Input& input) {
