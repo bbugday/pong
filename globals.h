@@ -7,5 +7,6 @@ namespace globals {
 	const int PADDLE_WIDTH = 16;
 	const int PADDLE_HEIGHT = 110;
 
-	const float SPRITE_SCALE = 1.0f;
+	const int BALL_WIDTH = 20;
+	const int BALL_HEIGHT = 20;
 }

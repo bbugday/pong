@@ -4,6 +4,7 @@
 #include "paddle.h"
 #include "input.h"
 #include "globals.h"
+#include "ball.h"
 
 
 Game::Game() {
@@ -21,6 +22,8 @@ void Game::gameLoop() {
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
+	this->_ball = Ball(graphics, "assets/ball.png", 0, 0, globals::BALL_WIDTH, globals::BALL_HEIGHT,
+		globals::SCREEN_WIDTH / 2 - globals::BALL_WIDTH / 2, globals::SCREEN_HEIGHT / 2 - globals::BALL_HEIGHT / 2);
 	this->_paddleLeft = Paddle(graphics, "assets/paddle.png", 0, 0, globals::PADDLE_WIDTH, globals::PADDLE_HEIGHT, 20, 
 		globals::SCREEN_HEIGHT/2 - globals::PADDLE_HEIGHT/2);
 	this->_paddleRight = Paddle(graphics, "assets/paddle.png", 0, 0, globals::PADDLE_WIDTH, globals::PADDLE_HEIGHT,
@@ -61,6 +64,7 @@ void Game::draw(Graphics& graphics) {
 	graphics.clear();
 	this->_paddleLeft.draw(graphics);
 	this->_paddleRight.draw(graphics);
+	this->_ball.draw(graphics);
 	graphics.flip();
 }
 
@@ -70,7 +74,6 @@ void Game::update(int elapsedTime) {
 }
 
 void Game::handleInputs(Input& input) {
-
 	if (input.isKeyHeld(SDL_SCANCODE_UP)) {
 		_paddleRight.moveUp();
 	}
