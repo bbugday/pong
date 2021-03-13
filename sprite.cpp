@@ -29,3 +29,8 @@ SDL_Rect Sprite::getRectangle() {
 	SDL_Rect rect = { this->_x, this->_y, this->_sourceRect.w * _scale, this->_sourceRect.h * _scale };
 	return rect;
 }
+
+void Sprite::setPosition(float x, float y) {
+	this->_x = x;
+	this->_y = y;
+}

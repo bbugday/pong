@@ -11,6 +11,7 @@ public:
 	void draw(Graphics& graphics);
 	float _scale;
 	SDL_Rect getRectangle();
+	void setPosition(float x, float y);
 protected:
 	float _x, _y;
 	SDL_Rect _sourceRect;
