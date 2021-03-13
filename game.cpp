@@ -72,6 +72,7 @@ void Game::update() {
 	this->_paddleLeft.update();
 	this->_paddleRight.update();
 	this->_ball.update(_paddleLeft, _paddleRight);
+	this->handleGoal();
 }
 
 void Game::handleInputs(Input& input) {
@@ -94,4 +95,25 @@ void Game::handleInputs(Input& input) {
 	if (!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S)) {
 		this->_paddleLeft.stopMoving();
 	}
+}
+
+void Game::handleGoal() {
+	SDL_Rect ballRect = _ball.getRectangle();
+
+	if (ballRect.x + ballRect.w <= 0) {
+		resetPositions();
+		_ball.setSpeed(-10, 0);
+		SDL_Delay(100);
+	}
+	else if (ballRect.x >= globals::SCREEN_WIDTH) {
+		resetPositions();
+		_ball.setSpeed(10, 0);
+		SDL_Delay(100);
+	}
+}
+
+void Game::resetPositions() {
+	_ball.setPosition(globals::SCREEN_WIDTH / 2 - globals::BALL_WIDTH / 2, globals::SCREEN_HEIGHT / 2 - globals::BALL_HEIGHT / 2);
+	_paddleLeft.setPosition(20, globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
+	_paddleRight.setPosition(globals::SCREEN_WIDTH - (20 + globals::PADDLE_WIDTH), globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
 }

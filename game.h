@@ -15,6 +15,8 @@ private:
 	void draw(Graphics& graphics);
 	void update();
 	void handleInputs(Input& input);
+	void handleGoal();
+	void resetPositions();
 	Paddle _paddleLeft;
 	Paddle _paddleRight;
 	Ball _ball;

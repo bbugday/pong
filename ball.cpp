@@ -36,15 +36,6 @@ void Ball::update(Paddle& paddleLeft, Paddle& paddleRight) {
 		this->_dy = -this->_dy;
 	}
 
-	if (this->_x < 0 || this->_x + this->getRectangle().w > globals::SCREEN_WIDTH) {
-		this->_x = globals::SCREEN_WIDTH / 2 - this->getRectangle().w / 2;
-		this->_y = globals::SCREEN_HEIGHT / 2 - this->getRectangle().h / 2;
-		this->_dx = 0;
-		this->_dy = 0;
-		paddleLeft.setPosition(20, globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
-		paddleRight.setPosition(globals::SCREEN_WIDTH - (20 + globals::PADDLE_WIDTH), globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
-	}
-
 	this->_x += this->_dx;
 	this->_y += this->_dy;
 }
@@ -67,5 +58,9 @@ bool Ball::collides(Paddle& paddle) {
 		return false;
 
 	return true;
+}
 
+void Ball::setSpeed(float dx, float dy) {
+	this->_dx = dx;
+	this->_dy = dy;
 }
