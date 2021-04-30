@@ -5,6 +5,7 @@
 #include "input.h"
 #include "globals.h"
 #include "ball.h"
+#include "text.h"
 
 
 Game::Game() {
@@ -30,6 +31,11 @@ void Game::gameLoop() {
 		globals::SCREEN_WIDTH - (20 + globals::PADDLE_WIDTH), globals::SCREEN_HEIGHT / 2 - globals::PADDLE_HEIGHT / 2);
 	int lastUpdateTime = SDL_GetTicks();
 	int deltaTime = 0;
+	
+	SDL_Color c = { 255,255,255 };
+	Text text = Text("assets/fonts/roboto-l-i.ttf", c);
+	text.loadFromRenderedText(graphics.getRenderer(), "foobar");
+	text.draw(graphics.getRenderer(), graphics);
 
 	while (true) {
 
